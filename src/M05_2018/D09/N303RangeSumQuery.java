@@ -19,16 +19,16 @@ public class N303RangeSumQuery {
     public int sumRange(int i, int j) {
         int start = insertPoint(i);
         int end = insertPoint(j);
-        int res = 0;
+        int res = nums[j];
         for (int k = start; k < end; k++) {
             res += values.get(k);
         }
         return res;
     }
 
-    public int sumRangeSlow(int i, int j){
+    private int sumRangeSlowExclusiveJ(int i, int j){
         int res = 0;
-        for (int k = i; k <= j; k++) {
+        for (int k = i; k < j; k++) {
             res += nums[k];
         }
         return res;
@@ -52,13 +52,13 @@ public class N303RangeSumQuery {
                     startIndex = insertIndex;
                     start = linePoints.get(startIndex);
                     end = linePoints.get(endIndex);
-                    value = sumRangeSlow(start, end);
-                    values.add(value, 0);
+                    value = sumRangeSlowExclusiveJ(start, end);
+                    values.add(0, value);
                 } else if (endIndex >= size){
                     endIndex = insertIndex;
                     start = linePoints.get(startIndex);
                     end = linePoints.get(endIndex);
-                    value = sumRangeSlow(start, end);
+                    value = sumRangeSlowExclusiveJ(start, end);
                     values.add(value);
                 }else {
                     int interval1 = linePoints.get(insertIndex) - linePoints.get(startIndex);
@@ -67,16 +67,16 @@ public class N303RangeSumQuery {
                         endIndex = insertIndex;
                         start = linePoints.get(startIndex);
                         end = linePoints.get(endIndex);
-                        value = sumRangeSlow(start, end);
+                        value = sumRangeSlowExclusiveJ(start, end);
                         values.set(startIndex, values.get(startIndex) - value);
-                        values.add(value, startIndex);
+                        values.add(startIndex, value);
                     }else {
                         startIndex = insertIndex;
                         start = linePoints.get(startIndex);
                         end = linePoints.get(endIndex);
-                        value = sumRangeSlow(start, end);
+                        value = sumRangeSlowExclusiveJ(start, end);
                         values.set(startIndex - 1, values.get(startIndex - 1) - value);
-                        values.add(value, startIndex);
+                        values.add(startIndex, value);
                     }
                 }
             }
