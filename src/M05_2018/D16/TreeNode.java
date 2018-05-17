@@ -1,0 +1,10 @@
+package M05_2018.D16;
+
+public class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    public TreeNode(int val){
+        this.val = val;
+    }
+}
